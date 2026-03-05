@@ -8,3 +8,126 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+//ENUMS
+enum UserRole {
+  PATIENT
+  DOCTOR
+  ADMIN
+}
+
+enum AppointmentStatus {
+  PENDING
+  PAID
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum BloodGroup {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+  UNKNOWN
+}
+
+//TABLES
+model User {
+  id          String      @id @default(cuid())
+  clerkId     String      @unique
+  role        UserRole
+  name        String
+  phone       String?     @unique
+  location    String?
+
+  //Specific for doctors
+  specialization    String?
+  consultationFee   Float?    @default(0)
+
+  // Rlshps
+  medicalHistory    MedicalHistory?
+  appointmentsAsPatient   Appointment[]   @relation("Patient")
+  appointmentsAsDoctor    Appointment[]   @relation("Doctor")
+  notifications           Notification[]  
+  createdAt               DateTime        @default(now())
+}
+
+model MedicalHistory {
+  id               String        @id @default(cuid())
+  userId           String        @unique
+  user             User          @relation(fields: [userId], references: [id])
+
+  bloodGroup          BloodGroup   @default(UNKNOWN)
+  allergies           String?
+  chronicConditions   String?
+  pastSurgeries       String?
+  isSmoker            Boolean      @default(false)
+
+  lastUpdated         DateTime     @updatedAt    
+}
+
+model Appointment {
+  id              String                @id @default(cuid())
+  scheduledAt     DateTime
+  status          AppointmentStatus     @default(PENDING)
+
+  //Appointment form
+  symptoms        String
+  urgency         String        // low,medium or high
+  attachmentUrl   String?       // patient can submit photos of where they are sick
+
+  patientId       String
+  patient         User          @relation("Patient", fields: [patientId], references: [id])
+
+
+  doctorId       String
+  doctor         User          @relation("Doctor", fields: [doctorId], references: [id])
+
+  payment        Payment?
+  prescription   Prescription?
+  createdAt      DateTime       @default(now())
+
+}
+
+model Payment {
+  id              String            @id @default(cuid())
+  amount          Float
+  provider        String            // "Mpesa" or "Stripe"
+  status          PaymentStatus     @default(PENDING)
+  transactionId   String?           @unique
+
+  appointmentId   String            @unique
+  appointment     Appointment       @relation(fields: [appointmentId], references: [id])
+
+  createdAt       DateTime          @default(now())
+}
+
+
+model Notification {
+  id             String       @id @default(cuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  content        String
+  isRead         Boolean      @default(false)
+  type           String     // "SMS" or "PUSH"
+  createdAt      DateTime     @default(now())
+}
+
+model Prescription {
+  id              String          @id @default(cuid())
+  appointmentId   String          @unique
+  appointment     Appointment     @relation(fields: [appointmentId], references: [id])
+  medicine        String
+  dosage          String
+  issuedAt        DateTime        @default(now())
+}
