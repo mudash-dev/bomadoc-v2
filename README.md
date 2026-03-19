@@ -12,7 +12,7 @@ BomaDoc 2.0.0 is a modern web-based revamp of the original BomaDoc Android appli
 Building on research regarding **User-Centered Design (UCD)** in rural Kenya, BomaDoc 2.0.0 aims to bridge the healthcare gap by providing a seamless interface for video consultations, appointment scheduling, and digital health records.
 
 ## 🛠 Tech Stack (The "V2" Revamp)
-- **Framework:** Next.js 14 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Authentication:** Clerk (Social & Phone Auth)
 - **Database:** PostgreSQL (via Neon.tech)
 - **ORM:** Prisma
@@ -22,6 +22,7 @@ Building on research regarding **User-Centered Design (UCD)** in rural Kenya, Bo
 
 ## 🏗 Current Architecture & Database
 The system uses a relational PostgreSQL schema designed to handle:
+- **Feature-Based Folder Structure** Allow use of Route Groups
 - **Dual-Role Profiles:** Separate flows for Patients and Doctors.
 - **Medical History:** Centralized records for allergies, blood groups, and chronic conditions.
 - **Appointment Lifecycle:** From symptom submission to payment and completion.
@@ -30,6 +31,7 @@ The system uses a relational PostgreSQL schema designed to handle:
 ## 📅 Roadmap
 - [x] Project Initialization & Stack Selection
 - [x] Relational Database Schema (Prisma)
+- [x] Project General UI Layout and Themeing(Tailwind + Shadcn)
 - [ ] Clerk Authentication & Role-Based Access
 - [ ] Appointment Booking Form
 - [ ] Agora Video Integration
