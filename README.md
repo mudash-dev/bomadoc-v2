@@ -31,7 +31,7 @@ The system uses a relational PostgreSQL schema designed to handle:
 ## 📅 Roadmap
 - [x] Project Initialization & Stack Selection
 - [x] Relational Database Schema (Prisma)
-- [x] Project General UI Layout and Themeing(Tailwind + Shadcn)
+- [x] Project General UI Layout and Themeing(Tailwind + Shadcn(Radix/Maia))
 - [ ] Clerk Authentication & Role-Based Access
 - [ ] Appointment Booking Form
 - [ ] Agora Video Integration
