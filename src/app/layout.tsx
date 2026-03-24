@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Navbar } from "@/components/shared/Navbar";
+import { ThemeProvider } from "next-themes";
 
 const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
@@ -30,7 +32,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider 
+        attribute="class" defaultTheme="system" enableSystem>
+          <div className="relative flex min-h-screen flex-col"
+        >
+          <Navbar/>
+          <main className="flex-1"> {children}</main>
+        </ThemeProvider>
+       
       </body>
     </html>
   );
