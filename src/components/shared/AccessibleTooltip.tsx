@@ -22,7 +22,7 @@ export function AccessibleTooltip(
                 </TooltipTrigger>
                 <TooltipContent
                     side={side}
-                    className="bg-brand text-white border-none px-4 py-2 text-sm font-medium shadow-xl animate-in fade-in zoom-in-95 "
+                    className="bg-brand text-black dark:text-white border-none px-4 py-2 text-sm font-medium shadow-xl animate-in fade-in zoom-in-95 "
                 >
                     {label}
                 </TooltipContent>
