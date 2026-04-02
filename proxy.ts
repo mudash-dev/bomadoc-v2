@@ -4,7 +4,7 @@ import { request } from "http";
 //list of public routes
 const isPublicRoute = createRouteMatcher([
     '/',
-    '/sign-in).*)',
+    '/sign-in(.*)',
     '/sign-up(.*)',
     '/api/webhook/clerk'
 ]);
