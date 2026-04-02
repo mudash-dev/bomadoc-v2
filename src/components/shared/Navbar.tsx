@@ -25,12 +25,12 @@ export function Navbar() {
             <ThemeToggle />
             
             <div className="hidden md:flex items-center gap-3">
-              <Link href="/login">
+              <Link href="/sign-in">
                 <Button variant="ghost" className="text-white hover:bg-white/10">
                   Ingia (Login)
                 </Button>
               </Link>
-              <Link href="/register">
+              <Link href="/sign-up">
                 {/* Secondary/White button for contrast on the Blue Navbar */}
                 <Button className="bg-white hover:bg-white/90 text-brand-blue shadow-sm px-6">
                   Jiunge (Register)

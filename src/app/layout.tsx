@@ -3,7 +3,8 @@ import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/shared/Navbar";
-import { ThemeProvider } from "next-themes"; // Note: If you made the custom wrapper earlier, use that instead
+import { ClerkProvider } from '@clerk/nextjs'
+import { ThemeProvider } from "next-themes"; 
 
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -28,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // 1. ADD suppressHydrationWarning to fix themeing error
-    <html lang="en" className={cn("font-sans", figtree.variable)} suppressHydrationWarning>
+    <ClerkProvider>
+      <html lang="en" className={cn("font-sans", figtree.variable)} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -45,6 +46,7 @@ export default function RootLayout({
           </div>
         </ThemeProvider>
       </body>
-    </html>
+      </html>
+    </ClerkProvider>
   );
 }
