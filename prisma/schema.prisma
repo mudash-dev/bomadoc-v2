@@ -44,9 +44,11 @@ enum BloodGroup {
 model User {
   id          String      @id @default(cuid())
   clerkId     String      @unique
-  role        UserRole
+  role        UserRole?
   name        String
-  phone       String?     @unique
+  phone       String?     @unique 
+  email       String     @unique
+  imageUrl    String?
   location    String?
 
   //Specific for doctors
